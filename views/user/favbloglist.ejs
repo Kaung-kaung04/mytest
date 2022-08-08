@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/tailwind.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="py-6 px-9 text-green-200">
+    <% include  ../partials/navbar%>
+    
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <% for(let i = 0 ; i < posts.length; i++) { %>
+
+    <div class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300">
+      <figure>
+        <img src="<%= posts[i].image %>" class="max-h-64" />
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between text-gray-400">
+          <h2 class="card-title"><%= posts[i].title %></h2>
+          <div class="w-32 flex justify-between">
+            <div class="my-auto" ><%= posts[i].author.name %></div>
+            <div class="avatar flex">
+              <div class="w-12 rounded-full">
+                <img src="<%= posts[i].author.profile %>" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p><%= posts[i].content %></p>
+        </div>
+
+        <div class="card-actions flex justify-end">
+          <div>
+            <a
+              href="/postdetails/<%= posts[i]._id %>"
+              class="btn btn-primary"
+              ><button>Details</button></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    function alert1(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "/users/postdelete",
+            type: "POST",
+            data: { id: id },
+          }).done((result) => {
+            if (result.json) {
+              setTimeout(function () {
+                location.reload();
+              }, 2300);
+
+              let timerInterval;
+              Swal.fire({
+                title: "Deleting...",
+                html: "It may only take a moment",
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: () => {
+                  Swal.showLoading();
+                },
+                willClose: () => {
+                  clearInterval(timerInterval);
+                },
+              }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    };
+
+    window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    //alert('refresh');
+    window.location.reload();
+  }
+});
+  </script>
+</html>

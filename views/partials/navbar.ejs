@@ -1,0 +1,59 @@
+<div class="navbar bg-slate-800 mb-10 mt-4">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-2xl text-purple-500" href="/"
+      >Mahuya</a
+    >
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal p-0">
+      <% if(locals.user) { %>
+
+      <li><a href="/logout" class="text-red-400">Log out</a></li>
+      <li>
+        <a href="/users/favbloglist" class="hover:text-purple-600"
+          >Your fav posts</a
+        >
+      </li>
+      <li>
+        <a href="/allposts" class="hover:text-purple-600">All posts</a>
+      </li>
+      <li>
+        <a href="/users/myposts" class="hover:text-purple-600">Your Posts</a>
+      </li>
+      <li>
+        <a href="/users/postadd" class="hover:text-purple-600">Add Post</a>
+      </li>
+      <a href="/users" class="my-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 mx-4 hover:text-purple-400 hover:cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          id="icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </a>
+      <li>
+        <a href="/users/profile" class="avatar flex">
+          <div class="w-12 rounded-full" id="pf">
+            <img src="<%= locals.user.profile %>" />
+          </div>
+        </a>
+      </li>
+      <% } else { %>
+      <li>
+        <a href="/allposts" class="hover:text-purple-600">All posts</a>
+      </li>
+      <li><a href="/login" class="hover:text-purple-600">Log in</a></li>
+      <li><a href="/register" class="hover:text-purple-600">Sign up</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>

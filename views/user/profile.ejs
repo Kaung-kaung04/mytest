@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/tailwind.css" />
+  </head>
+  <body class="bg-gradient-to-b from-slate-400 to-slate-800">
+    <div class="flex justify-center">
+      <div class="card w-96 glass">
+        <form
+          action="/users/pfupdate"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <h1 class="text-3xl text-white font-mono text-center my-4">
+            Edit Profile
+          </h1>
+          <div class="card-body">
+            <div class="avatar flex justify-center">
+              <div class="w-44 rounded-full">
+                <img src="<%= user.profile %>" id="output" />
+              </div>
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">username</span>
+              </label>
+              <input
+                type="text"
+                placeholder="username"
+                class="input input-bordered"
+                name="uname"
+                id="uname"
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="text"
+                placeholder="email"
+                class="input input-bordered"
+                name="uemail"
+                id="uemail"
+              />
+            </div>
+
+            <a
+              href="/users/pwreset"
+              class="label-text-alt link link-hover text-stone-50 font-bold mt-5"
+              >Change password?</a
+            >
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">profile:</span>
+              </label>
+              <input
+                type="file"
+                class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-1 file:btn-outline file:text-sm file:font-semibold"
+                name="profile"
+                id="img"
+                onchange="loadFile(event)"
+              />
+            </div>
+            <div class="form-control mt-6">
+              <button class="btn btn-outline" type="submit">Update</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    var loadFile = function (event) {
+      var image = document.getElementById("output");
+      image.src = URL.createObjectURL(event.target.files[0]);
+    };
+  $("#uname").val("<%= locals.user.name %>") 
+  $("#uemail").val("<%= locals.user.email %>")    
+  </script>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link rel="stylesheet" href="/stylesheets/tailwind.css" />
+  <body>
+    <% include ../partials/navbar %>
+    <div class="container">
+      <div class="flex items-center justify-center mt-16">
+        <div class="w-10/12 px-2">
+          <div class="shadow-xl rounded-lg overflow-hidden md:flex mx-auto">
+            <div
+              class="bg-cover bg-bottom h-56 md:h-auto lg:w-96"
+              style="background-image: url('<%= post.image %>')"
+            ></div>
+            <div class="w-full">
+              <div class="p-4 md:p-5">
+                <div class="flex justify-between">
+                  <span class="font-bold text-xl md:text-2xl"
+                    ><%= post.title %></span
+                  >
+                  <span id="demo"></span>
+                </div>
+                <p class="text-gray-700 md:text-lg"><%= post.author.name %></p>
+              </div>
+              <div class="p-4 md:p-5 glass">
+                <div class="text-lg">
+                  <!-- <div>
+                    <div class="text-lg text-gray-700">
+                      <span class="text-gray-900 font-bold">17</span> per
+                      person*
+                    </div>
+                    <div class="flex items-center">
+                      <div class="flex inline-flex -mx-px">
+                        <svg
+                          class="w-4 h-4 mx-px fill-current text-green-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z"
+                          />
+                        </svg>
+                        <svg
+                          class="w-4 h-4 mx-px fill-current text-green-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z"
+                          />
+                        </svg>
+                        <svg
+                          class="w-4 h-4 mx-px fill-current text-green-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z"
+                          />
+                        </svg>
+                        <svg
+                          class="w-4 h-4 mx-px fill-current text-green-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z"
+                          />
+                        </svg>
+                        <svg
+                          class="w-4 h-4 mx-px fill-current text-green-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            d="M6.43 12l-2.36 1.64a1 1 0 0 1-1.53-1.11l.83-2.75a1 1 0 0 0-.35-1.09L.73 6.96a1 1 0 0 1 .59-1.8l2.87-.06a1 1 0 0 0 .92-.67l.95-2.71a1 1 0 0 1 1.88 0l.95 2.71c.13.4.5.66.92.67l2.87.06a1 1 0 0 1 .59 1.8l-2.3 1.73a1 1 0 0 0-.34 1.09l.83 2.75a1 1 0 0 1-1.53 1.1L7.57 12a1 1 0 0 0-1.14 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-gray-600 ml-2 text-sm md:text-base mt-1">
+                        28 reviews
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <p class="text-black test-lg"><%= post.content %></p>
+                </div>
+                <hr class="my-7" />
+                <% if(locals.user) { %>
+
+                <input
+                  type="text"
+                  placeholder="Comment here"
+                  class="input input-bordered input-secondary w-full max-w-xs"
+                  id="comment"
+                />
+                <button
+                  class="btn btn-outline btn-primary"
+                  onclick="giveComment('<%= post._id %>', '<%= post.author._id %>')"
+                >
+                  Add
+                </button>
+
+                <% } else { %>
+
+                <span class="text-black mr-6"
+                  >Log in or sign up to comment</span
+                >
+                <a href="/login" class="btn btn-active btn-secondary">Login</a>
+
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-10 ml-12" />
+
+      <div class="antialiased mx-auto max-w-screen-lg">
+        <div class="space-y-4">
+          <% for(let i = 0; i < comments.length; i++) { %>
+
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img
+                class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                src="<%= comments[i].commenter.profile %>"
+                alt=""
+              />
+            </div>
+            <div
+              class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed"
+            >
+              <div class="block flex justify-between">
+                <strong><%= comments[i].commenter.name %></strong>
+                <span class="text-xs text-gray-400" id="date"></span>
+              </div>
+              <input
+                type="hidden"
+                value="<%= comments[i].created %>"
+                id="hidden"
+                class="hidden"
+              />
+              <br />
+              <p class="text-sm"><%= comments[i].comment %></p>
+              <div class="mt-4 items-center">
+                <div class="flex -space-x-2 mr-2">
+                  <img
+                    class="rounded-full w-6 h-6 border border-white"
+                    src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                    alt=""
+                  />
+                  <img
+                    class="rounded-full w-6 h-6 border border-white"
+                    src="https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                    alt=""
+                  />
+                </div>
+
+                <div
+                  class="text-sm text-gray-500 font-semibold mb-6 mt-1 cursor-pointer hover:underline hover:text-slate-200 inline-block"
+                  onclick="showReply()"
+                >
+                  5 Replies
+                </div>
+
+                <div class="i am here" id="replybox">
+                  <input
+                    type="text"
+                    placeholder="Reply here"
+                    class="input input-bordered input-secondary w-full btn-sm max-w-xs"
+                    id="replyInput"
+                  />
+                  <button
+                    onclick="giveReply('<%= comments[i]._id %>')"
+                    class="btn btn-outline btn-primary btn-sm"
+                  >
+                    reply
+                  </button>
+                  <% if(comments[i].reply) { %>
+                  <div class="flex mt-6">
+                    <div class="flex-shrink-0 mr-3">
+                      <img
+                        class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8"
+                        src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                        alt=""
+                      />
+                    </div>
+                    <div
+                      class="flex-1 bg-base-300 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed"
+                    >
+                      <strong>Sarah</strong>
+                      <span class="text-xs text-gray-400"
+                        ><%= comments[i].updated %></span
+                      >
+                      <p class="text-xs sm:text-sm"><%= comments[i].reply %></p>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% } %>
+
+          <!-- replys -->
+          <!-- <div class="flex">
+
+
+
+            <div class="flex-shrink-0 mr-3">
+              <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="">
+            </div>
+            <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+              <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+              <p class="text-sm">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                magna aliquyam erat, sed diam voluptua.
+              </p>
+              
+              <h4 class="my-5 uppercase tracking-wide text-gray-400 font-bold text-xs">Replies</h4>
+      
+              <div class="space-y-4">
+                <div class="flex">
+                  <div class="flex-shrink-0 mr-3">
+                    <img class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="">
+                  </div>
+                  <div class="flex-1 bg-base-300 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                    <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                    <p class="text-xs sm:text-sm">
+                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                      sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                      magna aliquyam erat, sed diam voluptua.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="flex-shrink-0 mr-3">
+                    <img class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="">
+                  </div>
+                  <div class="flex-1 bg-base-300 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                    <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                    <p class="text-xs sm:text-sm">
+                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                      sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                      magna aliquyam erat, sed diam voluptua.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- ////////////////////////////////////////// -->
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    var str = "<%= post.created %>";
+    document.getElementById("demo").innerHTML = str.slice(8, -27);
+
+    $("#date").html($("#hidden").val().slice(8, -27));
+
+    function giveComment(post, author) {
+      const data = { post: post, author: author, comment: $("#comment").val() };
+      $.ajax({
+        url: "/users/givecomment",
+        type: "POST",
+        data: data,
+      }).done((result) => {
+        console.log(result);
+        if (result.status == "error") {
+          alert("Something went wrong");
+          $("#comment").val("");
+          $("#comment").focus();
+        } else {
+          $("#comment").val("");
+          $("#comment").focus();
+          location.reload();
+        }
+      });
+    }
+
+    function giveReply(commentId) {
+      const data = { comment: commentId, reply: $("#replyInput").val() };
+      $.ajax({
+        url: "/users/giveReply",
+        type: "POST",
+        data: data,
+      }).done((result) => {
+        console.log(result);
+        if (result.status == "error") {
+          alert("Something went wrong");
+          $("#comment").val("");
+          $("#comment").focus();
+        } else {
+          $("#comment").val("");
+          location.reload();
+        }
+      });
+    }
+
+    $("#replybox").hide();
+    var num = -1;
+    function showReply() {
+      num += 1;
+      if (num % 2 == 0) {
+        $("#replybox").show();
+      } else {
+        $("#replybox").hide();
+      }
+    }
+  </script>
+</html>

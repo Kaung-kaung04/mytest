@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/tailwind.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="py-6 px-9 text-green-200">
+    <% include ../partials/navbar%>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <% for(let i = 0 ; i < posts.length; i++) { %>
+
+    <div class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300">
+      <figure>
+        <img src="<%= posts[i].image %>" class="max-h-64" />
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between text-gray-400">
+          <h2 class="card-title"><%= posts[i].title %></h2>
+          <div class="w-48 flex justify-between">
+            
+              <% if(!posts[i].private) { %>
+                <button onclick="givePrivate('<%= posts[i]._id %>')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 my-auto text-sky-500 hover:cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                id="givePrivate"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+            </button>
+              <% } else { %>
+              <button onclick="givePublic('<%= posts[i]._id %>')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 my-auto text-sky-500 hover:cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </button>
+              <% } %>
+            <div class="my-auto ml-6"><%= posts[i].author.name %></div>
+            <div class="avatar flex">
+              <div class="w-12 rounded-full">
+                <img src="<%= locals.user.profile %>" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p><%= posts[i].content %></p>
+        </div>
+
+        <div class="card-actions flex justify-end">
+          <div>
+            <a
+              href="/users/postdetails/<%= posts[i]._id %>"
+              class="btn btn-primary"
+              ><button>Details</button></a
+            >
+            <a
+              href="/users/postupdate/<%= posts[i]._id %>"
+              class="btn btn-primary"
+              ><button>Update</button></a
+            >
+            <a
+              href="/users/postdelete/<%= posts[i]._id %>"
+              class="btn btn-error"
+              id="delete"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    function givePrivate(id) {
+      $.ajax({
+        url: `/users/giveprivate/${id}`,
+        type: "GET",
+      }).done((result) => {
+        if (result.status == "error") {
+          alert("Something went wrong");
+        } else {
+          location.reload();
+        }
+      });
+    };
+
+    function givePublic(id) {
+      $.ajax({
+        url: `/users/givepublic/${id}`,
+        type: "GET",
+      }).done((result) => {
+        if (result.status == "error") {
+          alert("Something went wrong");
+        } else {
+          location.reload();
+        }
+      });
+    }
+  </script>
+</html>

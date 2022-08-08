@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/tailwind.css" />
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <div class="flex justify-center">
+      <form action="/users/pwreset" method="post">
+        <div
+          class="artboard artboard-horizontal phone-6 border border-secondary rounded-md p-5"
+        >
+          <h1 class="text-4xl font-extrabold text-center mt-4 mb-8">
+            Password reset
+          </h1>
+          <hr / class="mb-5 border-secondary">
+          <p class="mb-7 font-black">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
+            aliquam asperiores iste nobis quis maxime, nihil odio quod fugiat
+            iure in quidem dignissimos dolor. Asperiores sint dolorum excepturi
+            quaerat perspiciatis?
+          </p>
+          <div class="flex justify-center">
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your current password"
+              class="w-8/12 input input-bordered input-primary"
+            />
+            <button type="submit" class="ml-4 btn btn-primary btn-outline">
+              confirm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/tailwind.css">
+</head>
+<body>
+    <body class="py-6 px-9 text-green-200">
+      <% include  ./partials/navbar%>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    
+      
+        <% for(let i = 0 ; i < posts.length; i++) { %>
+    
+        <div class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300 relative">
+          <figure>
+            <img src="<%= posts[i].image %>"  class="max-h-64"/>
+          </figure>
+          <div class="card-body">
+
+            <div class="flex justify-between">
+              <h2 class="card-title"><%= posts[i].title %></h2>
+            <div class=" flex justify-between text-gray-400">
+                <span class="mr-4 my-auto"><%= posts[i].author.name %></span>
+                <div class="avatar flex">
+                  <div class="w-12 rounded-full">
+                    <img src="<%= posts[i].author.profile %>" />
+                  </div>
+                </div>
+            </div>
+            
+          </div>
+
+            <div>
+            <p><%= posts[i].content %></p>
+        </div>
+    
+            <div class="card-actions flex justify-end ">
+              
+              <div class="absolute bottom-5 right-5">
+               <a href="/postdetails/<%= posts[i]._id %>" class="btn btn-success">Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <% } %>
+</body>
+</html>
