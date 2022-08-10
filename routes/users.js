@@ -154,6 +154,7 @@ router.get("/postdetails/:id", auth, (req, res) => {
     if (err) throw err;
     Comment.find({ post: req.params.id })
       .populate("commenter", "name profile")
+      .populate("author", "name profile")
       .select("comment reply author created profile")
       .exec((err2, rtn2) => {
         console.log(rtn, "posts!!!!!");
@@ -235,11 +236,15 @@ router.post("/pwreset", auth, (req, res) => {
       "~~~~~~~~~~~~!!!!!!!!!!!!!!!!!~~~~~~~~~~~"
     );
     if (match) {
-      res.render("user/newpassword");
+      res.json({ status: true });
     } else {
-      res.redirect("/");
+      res.json({ status: "error" });
     }
   });
+});
+
+router.get("/newpassword", auth, (req, res) => {
+  res.render("user/newpassword");
 });
 
 // router.post("/newpassword", auth, (req, res) => {
@@ -382,7 +387,7 @@ router.get("/favbloglist", auth, (req, res) => {
 
 router.get("/giveprivate/:id", auth, (req, res) => {
   Post.findOneAndUpdate(
-    {_id: req.params.id, author: req.session.user.id},
+    { _id: req.params.id, author: req.session.user.id },
     { $set: { private: true } },
     (err, rtn) => {
       if (err) {
@@ -396,8 +401,8 @@ router.get("/giveprivate/:id", auth, (req, res) => {
 
 router.get("/givePublic/:id", auth, (req, res) => {
   Post.findOneAndUpdate(
-    {_id: req.params.id, author: req.session.user.id},
-    {$set: {private: false}},
+    { _id: req.params.id, author: req.session.user.id },
+    { $set: { private: false } },
     (err, rtn) => {
       if (err) {
         res.json({ status: "error" });
@@ -405,7 +410,7 @@ router.get("/givePublic/:id", auth, (req, res) => {
         res.json({ status: true });
       }
     }
-  )
-})
+  );
+});
 
 module.exports = router;

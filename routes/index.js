@@ -13,7 +13,9 @@ console.log(User.compare);
 /* GET home page. */
 router.get("/", function (req, res, next) {
   Post.aggregate([
-    { $match: { private: false } },
+    {
+      $match: { private: false, like: { $exists: true, $not: { $size: 0 } } },
+    },
     {
       $project: {
         title: 1,
@@ -64,6 +66,7 @@ router.get("/", function (req, res, next) {
         .populate("author", "name profile")
         .exec((err3, rtn3) => {
           if (err3) throw err3;
+          console.log(rtn, "checking likes!!!!!!!!!!");
           console.log(rtn2, "this is grouped post!!!!!!!!!!!!!!!!!!!!!!");
           console.log(rtn3, "This is the point");
           res.render("index1", {

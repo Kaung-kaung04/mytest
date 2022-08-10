@@ -51,7 +51,7 @@
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-
+          <a href="/users/profile" class="my-auto hover:text-white"><%= locals.user.name %></a>
           <li>
             <a href="/users/profile" class="avatar flex">
               <div class="w-12 rounded-full" id="pf">
@@ -71,9 +71,15 @@
     </div>
 
     <!-- ////////////////////////////////////////////////////////////////////// -->
-    <h1 class="text-center text-2xl text-sky-500 font-extrabold">
-      Most Liked Posts
+    <% if(mostliked.length != 0) { %>
+    <h1 class="text-center my-12 text-2xl text-sky-500 font-extrabold"><br><br>
+      Most reacted Posts:
     </h1>
+    <% } else { %>
+      <h1 class="text-center my-12 text-2xl text-amber-600 font-extrabold">
+        No reacted post yet
+      </h1>
+      <% } %>
     <% for(let i = 0 ; i < mostliked.length; i++) { %>
 
     <div
@@ -115,9 +121,15 @@
 
     <!-- ///////////////////////////////////////////////////////////////////////// -->
 
-    <h1 class="text-center text-2xl my-14 text-sky-500 font-extrabold">
-      Most Commented Posts
-    </h1>
+    <% if(mostcommented.length != 0) { %>
+      <h1 class="text-center my-12 text-2xl text-sky-500 font-extrabold">
+        Most commented Posts:
+      </h1>
+      <% } else { %>
+        <h1 class="text-center my-12 text-2xl text-amber-600 font-extrabold">
+          No commented post yet
+        </h1>
+        <% } %>
 
     <% for(let i = 0 ; i < mostcommented.length; i++) { %>
 
