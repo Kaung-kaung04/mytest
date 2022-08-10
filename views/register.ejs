@@ -13,11 +13,12 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"
   ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
   <body class="py-6 px-9 text-green-200 bg-base-200">
-    <div class="navbar bg-slate-800 rounded-full">
+    <div class="navbar bg-slate-800">
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-2xl text-purple-500">Mahuya</a>
+        <a class="btn btn-ghost normal-case text-2xl text-purple-500" href="/">Mahuya</a>
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal p-0">
@@ -30,7 +31,7 @@
     </div>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////// -->
-    <form action="/register" method="post" enctype="multipart/form-data">
+    <form action="/register" id="form" method="post" enctype="multipart/form-data">
       <div class="hero min-h-screen bg-base-200">
         <div class="hero-content flex-col lg:flex-row-reverse">
           <div class="text-center lg:text-left">
@@ -81,11 +82,7 @@
                   name="pwd"
                   id="pwd"
                 />
-                <label class="label">
-                  <a href="#" class="label-text-alt link link-hover"
-                    >Forgot password?</a
-                  >
-                </label>
+                
               </div>
 
               <div class="form-control">
@@ -110,6 +107,31 @@
     </form>
   </body>
   <script>
+        $.validator.addMethod(
+      "regex",
+      function (value, element, regexp) {
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+      },
+      "Allowed characters: a-z,A-Z, at least 8 characters"
+    );
+
+    $("#form").validate({
+      rules: {
+        uemail: {
+          required: true,
+          email: true,
+        },
+        uname: {
+          required: true,
+        },
+        pwd: {
+          required: true,
+          regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+        },
+      },
+    });
+
     $("#uemail").blur(function () {
       if ($("#uemail").val() != "") {
         $.ajax({

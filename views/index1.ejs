@@ -8,45 +8,50 @@
     <link rel="stylesheet" href="/stylesheets/tailwind.css" />
   </head>
   <body class="py-6 px-9 text-green-200">
-
-
- 
     <div class="navbar bg-slate-800 mb-10 mt-4">
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-2xl text-purple-500" href="/">Mahuya</a>
+        <a class="btn btn-ghost normal-case text-2xl text-purple-500" href="/"
+          >Mahuya</a
+        >
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal p-0">
           <% if(locals.user) { %>
 
           <li><a href="/logout" class="text-red-400">Log out</a></li>
-          <li><a href="/users/favbloglist" class="hover:text-purple-600">Your fav posts</a></li>
+          <li>
+            <a href="/users/favbloglist" class="hover:text-purple-600"
+              >Your fav posts</a
+            >
+          </li>
           <li>
             <a href="/allposts" class="hover:text-purple-600">All posts</a>
           </li>
           <li>
-            <a href="/users/myposts" class="hover:text-purple-600">Your Posts</a>
+            <a href="/users/myposts" class="hover:text-purple-600"
+              >Your Posts</a
+            >
           </li>
           <li>
             <a href="/users/postadd" class="hover:text-purple-600">Add Post</a>
           </li>
-       
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 my-auto mx-4 hover:text-purple-400 hover:cursor-pointer"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-              id="icon"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-         
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 my-auto mx-4 hover:text-purple-400 hover:cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            id="icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+
           <li>
             <a href="/users/profile" class="avatar flex">
               <div class="w-12 rounded-full" id="pf">
@@ -65,52 +70,95 @@
       </div>
     </div>
 
-
-
-
-
-
-
-
-
-
     <!-- ////////////////////////////////////////////////////////////////////// -->
-
+    <h1 class="text-center text-2xl text-sky-500 font-extrabold">
+      Most Liked Posts
+    </h1>
     <% for(let i = 0 ; i < mostliked.length; i++) { %>
-    
-      <div class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300 relative">
-        <figure>
-          <img src="<%= mostliked[i].image %>"  class="max-h-64"/>
-        </figure>
-        <div class="card-body">
 
-          <div class="flex justify-between">
-            <h2 class="card-title"><%= mostliked[i].title %></h2>
-          <div class=" flex justify-between text-gray-400">
-              <span class="mr-4 my-auto"><%= mostliked[i].author[0].name %></span>
-              <div class="avatar flex">
-                <div class="w-12 rounded-full">
-                  <img src="<%= mostliked[i].author[0].profile %>" />
-                </div>
+    <div
+      class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300 relative"
+    >
+      <figure>
+        <img src="<%= mostliked[i].image %>" class="max-h-64" />
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between">
+          <h2 class="card-title"><%= mostliked[i].title %></h2>
+          <div class="flex justify-between text-gray-400">
+            <span class="mr-4 my-auto"><%= mostliked[i].author[0].name %></span>
+            <div class="avatar flex">
+              <div class="w-12 rounded-full">
+                <img src="<%= mostliked[i].author[0].profile %>" />
               </div>
-          </div>
-          
-        </div>
-
-          <div>
-          <p><%= mostliked[i].content %></p>
-      </div>
-  
-          <div class="card-actions flex justify-end ">
-            
-            <div class="absolute bottom-5 right-5">
-             <a href="/postdetails/<%= mostliked[i]._id %>" class="btn btn-success">Details</a>
             </div>
           </div>
         </div>
+
+        <div>
+          <p><%= mostliked[i].content %></p>
+        </div>
+
+        <div class="card-actions flex justify-end">
+          <div class="absolute bottom-5 right-5">
+            <a
+              href="/postdetails/<%= mostliked[i]._id %>"
+              class="btn btn-success"
+              >Details</a
+            >
+          </div>
+        </div>
       </div>
-  
-      <% } %>
+    </div>
+
+    <% } %>
+
+    <!-- ///////////////////////////////////////////////////////////////////////// -->
+
+    <h1 class="text-center text-2xl my-14 text-sky-500 font-extrabold">
+      Most Commented Posts
+    </h1>
+
+    <% for(let i = 0 ; i < mostcommented.length; i++) { %>
+
+    <div
+      class="card lg:card-side bg-base-100 shadow-xl mt-8 hover:bg-base-300 relative"
+    >
+      <figure>
+        <img src="<%= mostcommented[i].post[0].image %>" class="max-h-64" />
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between">
+          <h2 class="card-title"><%= mostcommented[i].post[0].title %></h2>
+          <div class="flex justify-between text-gray-400">
+            <%= authors[i].author.name%>
+            <span class="mr-4 my-auto"></span>
+            <div class="avatar flex">
+              <div class="w-12 rounded-full">
+                <!-- author profile here -->
+                <img src="<%= authors[i].author.profile %>" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p><%= mostcommented[i].post[0].content %></p>
+        </div>
+
+        <div class="card-actions flex justify-end">
+          <div class="absolute bottom-5 right-5">
+            <a
+              href="/postdetails/<%= mostcommented[i].post[0]._id %>"
+              class="btn btn-success"
+              >Details</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% } %>
   </body>
   <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -120,6 +168,18 @@
   <script>
     $("#icon").click(function () {
       location.href = "/users";
+    });
+
+    window.addEventListener("pageshow", function (event) {
+      var historyTraversal =
+        event.persisted ||
+        (typeof window.performance != "undefined" &&
+          window.performance.navigation.type === 2);
+      if (historyTraversal) {
+        // Handle page restore.
+        //alert('refresh');
+        window.location.reload();
+      }
     });
   </script>
 </html>

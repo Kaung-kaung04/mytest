@@ -13,7 +13,6 @@ console.log(User.compare);
 /* GET home page. */
 router.get("/", function (req, res, next) {
   Post.aggregate([
-
     { $match: { private: false } },
     {
       $project: {
@@ -37,8 +36,43 @@ router.get("/", function (req, res, next) {
     { $limit: 6 },
   ]).exec((err, rtn) => {
     if (err) throw err;
-    console.log(rtn);
-    res.render("index1", { mostliked: rtn });
+    Comment.aggregate([
+      {
+        $group: {
+          _id: "$post",
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { count: -1 } },
+      {
+        $lookup: {
+          from: "posts",
+          localField: "_id",
+          foreignField: "_id",
+          as: "post",
+        },
+      },
+    ]).exec((err2, rtn2) => {
+      if (err2) throw err2;
+      const aryToPopulate = [];
+      for (let i = 0; i < rtn2.length; i++) {
+        let item = rtn2[i]._id;
+        aryToPopulate.push(item);
+      }
+      console.log(aryToPopulate, "This is array to populate");
+      Post.find({ _id: { $in: aryToPopulate }, private: false })
+        .populate("author", "name profile")
+        .exec((err3, rtn3) => {
+          if (err3) throw err3;
+          console.log(rtn2, "this is grouped post!!!!!!!!!!!!!!!!!!!!!!");
+          console.log(rtn3, "This is the point");
+          res.render("index1", {
+            mostliked: rtn,
+            mostcommented: rtn2,
+            authors: rtn3,
+          });
+        });
+    });
   });
 });
 
