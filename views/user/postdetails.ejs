@@ -93,12 +93,12 @@
               <div class="mt-4 items-center">
                 <div
                   class="text-sm text-gray-500 font-semibold mb-6 mt-1 cursor-pointer hover:underline hover:text-slate-200 inline-block"
-                  onclick="showReply()"
+                  onclick="showReply(this)"
                 >
                   Replies
                 </div>
 
-                <div class="i am here" id="replybox">
+                <div class="i am here hidden" id="replybox">
                   <input
                     type="text"
                     placeholder="Reply here"
@@ -202,6 +202,16 @@
 
     $("#date").html($("#hidden").val().slice(8, -27));
 
+
+    function showReply(data) {
+      const toggle = $(data).parents()[0].children[1];
+      if (toggle.style.display === "none") {
+        toggle.style.display = "block";
+      } else {
+        toggle.style.display = "none";
+      }
+    }
+
     function giveComment(post, author) {
       const data = { post: post, author: author, comment: $("#comment").val() };
       $.ajax({
@@ -241,15 +251,6 @@
       });
     }
 
-    $("#replybox").hide();
-    var num = -1;
-    function showReply() {
-      num += 1;
-      if (num % 2 == 0) {
-        $("#replybox").show();
-      } else {
-        $("#replybox").hide();
-      }
-    }
+   
   </script>
 </html>

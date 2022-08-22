@@ -9,25 +9,28 @@ var session = require("express-session");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
+var apiIndexRouter = require("./api/routes/index");
+var apiUserRouter = require("./api/routes/user");
+
 var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// mongoose.connect("mongodb://127.0.0.1/blogger003");
-// const db = mongoose.connection;
-// db.on("error", console.error.bind("Database error detected"));
-// db.on("connected", function(){console.log("Database connected!")});
-
-mongoose.connect(
-  "mongodb+srv://kaungkaung:kaungkaung04@blogger001.cwonxdz.mongodb.net/?retryWrites=true&w=majority"
-);
+mongoose.connect("mongodb://127.0.0.1/blogger003");
 const db = mongoose.connection;
 db.on("error", console.error.bind("Database error detected"));
-db.on("connected", function () {
-  console.log("Database connected!");
-});
+db.on("connected", function(){console.log("Database connected!")});
+
+// mongoose.connect(
+//   "mongodb+srv://kaungkaung:kaungkaung04@blogger001.cwonxdz.mongodb.net/?retryWrites=true&w=majority"
+// );
+// const db = mongoose.connection;
+// db.on("error", console.error.bind("Database error detected"));
+// db.on("connected", function () {
+//   console.log("Database connected!");
+// });
 
 app.use(
   session({
@@ -52,6 +55,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/api", apiIndexRouter);
+app.use("/api/users", apiUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
