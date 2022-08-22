@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const multer = require("multer");
-
+const fs = require("fs");
 const Post = require("../models/Post");
 const Comment = require("../models/Comments");
 const User = require("../models/User");
@@ -59,7 +59,7 @@ router.post("/postadd", auth, upload.single("photo"), (req, res, next) => {
   post.content = req.body.content;
   post.author = req.session.user.id;
   post.created = Date.now();
-  post.created = Date.now();
+  post.updated = Date.now();
   console.log(req.file, "this is req,file");
   if (req.file) {
     post.image = "/images/uploads/" + req.file.filename;
@@ -100,6 +100,15 @@ router.post("/postupdate", auth, upload.single("photo"), (req, res) => {
   };
   if (req.file) {
     update.image = "/images/uploads/" + req.file.filename;
+    Post.findById(req.body.id)
+      .select("image")
+      .exec((err, rtn) => {
+        if (err) throw err;
+        fs.unlink("public" + rtn.image, (err) => {
+          console.log(rtn.image, "THis is img !!!!!!!");
+          if (err) throw err;
+        });
+      });
   }
   Post.findOneAndUpdate(
     { _id: req.body.id, author: req.session.user.id },
@@ -120,7 +129,11 @@ router.get("/postdelete/:id", (req, res) => {
         { post: req.params.id, author: req.session.user.id },
         (err2, rtn2) => {
           if (err2) throw err2;
-          res.redirect("/users/myposts");
+          fs.unlink("public" + rtn.image, (err3) => {
+            console.log(rtn.image, "THis is img !!!!!!!");
+            if (err3) throw err;
+            res.redirect("/users/myposts");
+          });
         }
       );
     }
@@ -150,19 +163,26 @@ router.post("/givecomment", auth, (req, res) => {
 });
 
 router.get("/postdetails/:id", auth, (req, res) => {
-  Post.findById(req.params.id, (err, rtn) => {
-    if (err) throw err;
-    Comment.find({ post: req.params.id })
-      .populate("commenter", "name profile")
-      .populate("author", "name profile")
-      .select("comment reply author created profile")
-      .exec((err2, rtn2) => {
-        console.log(rtn, "posts!!!!!");
-        console.log(rtn2, "select!!!!!!");
-        if (err2) throw err2;
-        res.render("user/postdetails", { post: rtn, comments: rtn2 });
-      });
-  });
+  Post.findOne(
+    { _id: req.params.id, author: req.session.user.id },
+    (err, rtn) => {
+      if (err) throw err;
+      if (rtn != null) {
+        Comment.find({ post: req.params.id })
+          .populate("commenter", "name profile")
+          .populate("author", "name profile")
+          .select("comment reply author created profile")
+          .exec((err2, rtn2) => {
+            console.log(rtn, "posts!!!!!");
+            console.log(rtn2, "select!!!!!!");
+            if (err2) throw err2;
+            res.render("user/postdetails", { post: rtn, comments: rtn2 });
+          });
+      } else {
+        res.redirect("/users/myposts");
+      }
+    }
+  );
 });
 
 router.get("/profile", auth, (req, res) => {
